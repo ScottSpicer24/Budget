@@ -59,9 +59,23 @@ export class MenuService implements OnDestroy {
     this._showSidebar.set(!this._showSidebar());
   }
 
-  public toggleMenu(menu: any) {
+  public toggleMenu(menu: SubMenuItem) {
     this.showSideBar = true;
-    menu.expanded = !menu.expanded;
+
+    /** collapse all submenus except the selected one. */
+    const updatedMenu = this._pagesMenu().map((menuGroup) => {
+      return {
+        ...menuGroup,
+        items: menuGroup.items.map((item) => {
+          return {
+            ...item,
+            expanded: item === menu ? !item.expanded : false,
+          };
+        }),
+      };
+    });
+
+    this._pagesMenu.set(updatedMenu);
   }
 
   public toggleSubMenu(submenu: SubMenuItem) {
