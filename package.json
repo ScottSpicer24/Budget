@@ -1,7 +1,7 @@
 {
   "name": "angular-tailwind",
   "displayName": "Angular Tailwind",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "description": "Angular & Tailwind CSS Admin Dashboard Starter Kit, Free and Open Source",
   "homepage": "https://github.com/lannodev/angular-tailwind#readme",
   "repository": {
@@ -49,8 +49,7 @@
     "ng-apexcharts": "^1.7.1",
     "ngx-sonner": "^2.0.1",
     "rxjs": "^7.8.2",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@angular/build": "^20.0.1",
