@@ -1,0 +1,31 @@
+<!-- Card -->
+<div class="flex h-[420px] flex-col items-center rounded-lg bg-background p-8 text-center" style="color:aliceblue">
+    <div class="text-sm font-semibold tracking-wide opacity-90">
+        Balances
+    </div>
+
+    <div class="flex flex-1 items-center justify-center py-6">
+        @if (chartOptions.series?.length) {
+            <apx-chart
+                [series]="chartOptions.series!"
+                [chart]="chartOptions.chart!"
+                [labels]="chartOptions.labels!"
+                [plotOptions]="chartOptions.plotOptions!"
+                [dataLabels]="chartOptions.dataLabels!"
+                [legend]="chartOptions.legend!"
+                [stroke]="chartOptions.stroke!"
+                [fill]="chartOptions.fill!"
+                [tooltip]="chartOptions.tooltip!"
+                [theme]="chartOptions.theme!"
+                [responsive]="chartOptions.responsive!">
+            </apx-chart>
+        } @else {
+            <div class="text-sm opacity-70">No accounts to chart</div>
+        }
+    </div>
+
+    <div class="mt-auto text-4xl font-bold leading-none">
+        ${{ balance }}
+    </div>
+</div>
+<!-- end Card -->

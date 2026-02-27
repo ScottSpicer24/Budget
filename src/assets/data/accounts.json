@@ -1,0 +1,14 @@
+[
+    {
+        "id" : 1,
+        "bank" : "BofA",
+        "type" : "checking",
+        "balance": 1224.99
+    },
+    {
+        "id" : 2,
+        "bank" : "BofA",
+        "type" : "savings",
+        "balance": 8000.63
+    }
+]

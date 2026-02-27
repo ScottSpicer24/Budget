@@ -1,0 +1,40 @@
+<!-- Card -->
+<div class="flex h-[420px] flex-col rounded-lg bg-background px-8 py-8">
+  <div class="mb-4 flex items-center justify-between">
+    <div class="flex-col">
+      <h3 class="text-md font-bold text-foreground">Budgets</h3>
+      <span class="text-xs text-muted-foreground">Spending by category</span>
+    </div>
+  </div>
+
+  <div class="relative flex-1 overflow-y-auto">
+    @if (rows.length) {
+      <div class="space-y-4">
+        @for (row of rows; track row.category) {
+          <div class="space-y-1">
+            <div class="flex items-baseline justify-between text-xs text-muted-foreground">
+              <span>{{ row.category }}</span>
+              <span>
+                {{ row.spent }} / {{ row.budget }}
+              </span>
+            </div>
+            <div
+              class="h-3 w-full rounded-full border"
+              [class.border-red-500]="row.over"
+              [class.border-border]="!row.over">
+              <div
+                class="h-full rounded-full"
+                [class.bg-red-500]="row.over"
+                [class.bg-primary]="!row.over"
+                [style.width.%]="row.percent * 100">
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="text-sm text-muted-foreground">No budget data available.</div>
+    }
+  </div>
+</div>
+<!-- end Card -->

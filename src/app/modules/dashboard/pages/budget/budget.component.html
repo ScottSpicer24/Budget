@@ -1,0 +1,17 @@
+<div>
+  <!-- Header -->
+  <app-budget-header></app-budget-header>
+  <!-- end Header -->
+
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
+    <app-balance-card
+      [accounts]="accounts"
+      class="md:col-span-2 xl:col-span-1"></app-balance-card>
+    <app-transactions-card
+      class="md:col-span-2 xl:col-span-3"></app-transactions-card>
+    <app-budgets-card
+      class="md:col-span-2 xl:col-span-2"></app-budgets-card>
+    <app-spending-card
+      class="md:col-span-2 xl:col-span-2"></app-spending-card>
+  </div>
+</div>

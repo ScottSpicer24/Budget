@@ -1,0 +1,71 @@
+[
+  {
+    "id": 1,
+    "item": "Salary",
+    "amount": 2000,
+    "date": "2021-01-01",
+    "account": "Bank of America",
+    "type": "Income"
+  },
+  {
+    "id": 2,
+    "item": "Rent",
+    "amount": -1200,
+    "date": "2021-01-01",
+    "account": "Bank of America",
+    "type": "Living"
+  },
+  {
+    "id": 3,
+    "item": "Publix",
+    "amount": -136.50,
+    "date": "2021-01-02",
+    "account": "Bank of America",
+    "type": "Food"
+  },
+  {
+    "id": 4,
+    "item": "OF",
+    "amount": -469.80,
+    "date": "2021-01-03",
+    "account": "Bank of America",
+    "type": "Entertainment"
+  },
+  {
+    "id": 5,
+    "item": "Video Games",
+    "amount": -69.99,
+    "date": "2021-01-04",
+    "account": "Bank of America",
+    "type": "Entertainment"
+  },
+  {
+    "id": 6,
+    "item": "Video Games",
+    "amount": -69.99,
+    "date": "2021-01-04",
+    "account": "Bank of America",
+    "type": "Entertainment"
+  },
+  {
+    "id": 7,
+    "item": "Video Games",
+    "amount": -69.99,
+    "date": "2021-01-06",
+    "account": "Bank of America",
+    "type": "Entertainment"
+  },  {
+    "id": 8,
+    "item": "Video Games",
+    "amount": -69.99,
+    "date": "2021-01-07",
+    "account": "Bank of America"
+  },  {
+    "id": 9,
+    "item": "Video Games",
+    "amount": -69.99,
+    "date": "2021-01-09",
+    "account": "Bank of America",
+    "type": "Entertainment"
+  }
+]

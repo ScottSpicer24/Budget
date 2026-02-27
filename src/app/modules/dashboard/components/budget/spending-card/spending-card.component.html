@@ -1,0 +1,40 @@
+<!-- Card -->
+<div class="flex h-[420px] flex-col rounded-lg bg-background px-8 py-8">
+  <div class="mb-4 flex items-center justify-between">
+    <div class="flex-col">
+      <h3 class="text-md font-bold text-foreground">Spending</h3>
+      <span class="text-xs text-muted-foreground">{{ monthLabel }}</span>
+    </div>
+  </div>
+
+  <div class="flex-1">
+    @if (chartOptions.series) {
+      <apx-chart
+        [series]="chartOptions.series!"
+        [chart]="chartOptions.chart!"
+        [legend]="chartOptions.legend!"
+        [dataLabels]="chartOptions.dataLabels!"
+        [fill]="chartOptions.fill!"
+        [stroke]="chartOptions.stroke!"
+        [xaxis]="chartOptions.xaxis!"
+        [yaxis]="chartOptions.yaxis!"
+        [states]="chartOptions.states!"
+        [tooltip]="chartOptions.tooltip!"
+        [colors]="chartOptions.colors!"
+        [grid]="chartOptions.grid!"
+        [title]="chartOptions.title!">
+      </apx-chart>
+    }
+  </div>
+
+  <div class="mt-4 flex items-baseline justify-between text-xl">
+    <span class="text-muted-foreground font-semibold">Change this month</span>
+    <span
+      class="font-bold"
+      [class.text-green-500]="monthChangePositive"
+      [class.text-red-500]="!monthChangePositive">
+      {{ monthChangeLabel }}
+    </span>
+  </div>
+</div>
+<!-- end Card -->
