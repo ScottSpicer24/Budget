@@ -1,5 +1,5 @@
 import { Component, Input, effect } from '@angular/core';
-import { Account } from '../../../models/budget';
+import { Account } from '../../../../../shared/models/budget';
 import {
   ApexChart,
   ApexDataLabels,

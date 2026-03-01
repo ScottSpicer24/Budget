@@ -1,0 +1,31 @@
+<div class="mb-4 flex justify-between">
+  <div class="inline-block">
+    <h3 class="text-foreground font-semibold">Transactions</h3>
+    <div class="text-muted-foreground space-x-1 text-xs font-medium">
+      <span>Total:</span>
+      <span class="text-foreground">{{ filteredTransactions().length }}</span>
+    </div>
+  </div>
+</div>
+
+<div class="border-muted/20 bg-background flex min-w-full flex-col rounded-xl border p-2">
+  <div
+    class="scrollbar-thumb-rounded scrollbar-track-rounded scrollbar-thin scrollbar-track-transparent scrollbar-thumb-muted grow overflow-x-auto px-5">
+    <table
+      class="text-muted-foreground table w-full table-auto border-collapse border-0 text-left align-middle leading-5">
+      <thead class="border-muted/20 text-muted-foreground border text-xs uppercase">
+        <tr app-table-header></tr>
+      </thead>
+      <tbody>
+        @for (transaction of filteredTransactions(); track transaction.id) {
+          <tr class="border-muted/10 hover:bg-card/50 border-b border-dashed" app-table-row [item]="transaction"></tr>
+        } @empty {
+          <tr>
+            <td class="text-muted-foreground py-4 text-center text-sm" colspan="5">No transactions found</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <app-table-footer></app-table-footer>
+</div>

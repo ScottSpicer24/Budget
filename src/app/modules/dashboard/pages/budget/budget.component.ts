@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { BudgetHeaderComponent } from '../../components/budget/budget-header/budget-header.component';
 import data from '../../../../../assets/data/accounts.json';
-import { Account } from '../../models/budget';
+import { Account } from '../../../../shared/models/budget';
 import { BalanceCardComponent } from '../../components/budget/balance-card/balance-card.component';
 import { TransactionsCardComponent } from '../../components/budget/transactions-card/transactions-card.component';
 import { BudgetsCardComponent } from '../../components/budget/budgets-card/budgets-card.component';

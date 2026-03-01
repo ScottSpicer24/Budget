@@ -3,7 +3,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { ThemeService } from 'src/app/core/services/theme.service';
 import { ChartOptions } from '../../../../../shared/models/chart-options';
 import transactionsData from '../../../../../../assets/data/transactions.json';
-import { Transaction } from '../../../models/budget';
+import { Transaction } from '../../../../../shared/models/budget';
 
 @Component({
   selector: 'app-spending-card',

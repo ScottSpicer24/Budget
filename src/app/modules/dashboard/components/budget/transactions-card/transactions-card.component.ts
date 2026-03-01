@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Transaction } from '../../../models/budget';
+import { Transaction } from '../../../../../shared/models/budget';
 import data from '../../../../../../assets/data/transactions.json'
 
 @Component({

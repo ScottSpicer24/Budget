@@ -13,6 +13,11 @@ export class Menu {
           children: [{ label: 'Nfts', route: '/dashboard/nfts' }, { label: 'Budget', route: '/dashboard/budget' }],
         },
         {
+          icon: 'assets/icons/heroicons/outline/credit-card.svg',
+          label: 'Transactions',
+          route: '/transactions',
+        },
+        {
           icon: 'assets/icons/heroicons/outline/lock-closed.svg',
           label: 'Auth',
           route: '/auth',

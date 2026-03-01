@@ -1,0 +1,24 @@
+<ng-container>
+  <td class="py-3">
+    <div class="flex flex-col items-start">
+      <span class="text-foreground text-sm font-semibold">{{ item.item }}</span>
+      <span class="text-muted-foreground text-xs">{{ item.type }}</span>
+    </div>
+  </td>
+  <td class="py-3">
+    <span
+      class="text-sm font-medium"
+      [class.text-green-500]="item.amount >= 0"
+      [class.text-red-500]="item.amount < 0">
+      {{ item.amount >= 0 ? '+' : '' }}{{ item.amount.toFixed(2) }}
+    </span>
+  </td>
+  <td class="py-3 text-foreground text-sm">{{ item.date }}</td>
+  <td class="py-3 text-foreground text-sm">{{ item.account }}</td>
+  <td class="py-3 text-center">
+    <button
+      class="text-muted-foreground hover:bg-card hover:text-foreground flex h-7 w-7 items-center justify-center rounded-md">
+      <svg-icon src="./assets/icons/heroicons/outline/ellipsis-vertical.svg" [svgClass]="'h-4 w-4'"></svg-icon>
+    </button>
+  </td>
+</ng-container>

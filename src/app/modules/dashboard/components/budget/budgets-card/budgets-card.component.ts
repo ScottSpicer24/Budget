@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import budgetsData from '../../../../../../assets/data/budgets.json';
 import transactionsData from '../../../../../../assets/data/transactions.json';
-import { Budget, Transaction } from '../../../models/budget';
+import { Budget, Transaction } from '../../../../../shared/models/budget';
 
 type BudgetRow = {
   category: string;
