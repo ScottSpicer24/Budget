@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout.component';
 import { TransactionsComponent } from '../transactions/transactions.component';
+import { BudgetsComponent } from '../budgets/budgets.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,11 @@ const routes: Routes = [
     path: 'transactions',
     component: LayoutComponent,
     children: [{ path: '', component: TransactionsComponent }],
+  },
+  {
+    path: 'budgets',
+    component: LayoutComponent,
+    children: [{ path: '', component: BudgetsComponent }],
   },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: 'error/404' },
