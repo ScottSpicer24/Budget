@@ -1,8 +1,95 @@
-<div class="flex h-[420px] flex-col rounded-lg bg-background px-8 py-8"><
-  <div class="mb-4 flex items-center justify-between">
-      <div class="flex-col">
-          <h3 class="text-md font-bold text-foreground">Expenses</h3>
-          <span class="text-xs text-muted-foreground">Budgeted spending by category</span>
-      </div>
+<div class="flex flex-col rounded-lg bg-background px-8 py-8">
+  <!-- Card Header -->
+  <div class="mb-6 flex items-center justify-between">
+    <div class="flex flex-col">
+      <h3 class="text-md font-bold text-foreground">Expenses</h3>
+      <span class="text-xs text-muted-foreground">Budgeted spending by category</span>
+    </div>
+    <!-- Column labels -->
+    <div class="flex items-center gap-3 pr-1 text-xs text-muted-foreground">
+      <span class="w-16 text-right">% of total</span>
+      <span class="w-20 text-right">Amount</span>
+    </div>
+  </div>
+
+  <!-- Needs Section -->
+  <div class="mb-6">
+    <div class="mb-1 flex items-center justify-between">
+      <h4 class="text-sm font-semibold text-foreground">Needs</h4>
+      <button
+        (click)="addNeed()"
+        class="flex items-center gap-1 rounded px-1 py-0.5 text-xs text-primary transition-colors hover:bg-primary/10">
+        <svg-icon src="assets/icons/heroicons/outline/plus.svg" [svgClass]="'h-3.5 w-3.5'"></svg-icon>
+        Add
+      </button>
+    </div>
+    <div class="divide-y divide-border">
+      @for (item of needs(); track item.index) {
+        <app-expense-row
+          [expense]="item.expense"
+          [index]="item.index"
+          [totalPayments]="service.totalPayments()"
+          (expenseChange)="onExpenseChange(item.index, $event)">
+        </app-expense-row>
+      }
+      @if (needs().length === 0) {
+        <p class="py-3 text-xs text-muted-foreground">No needs added yet.</p>
+      }
+    </div>
+  </div>
+
+  <!-- Wants Section -->
+  <div class="mb-6">
+    <div class="mb-1 flex items-center justify-between">
+      <h4 class="text-sm font-semibold text-foreground">Wants</h4>
+      <button
+        (click)="addWant()"
+        class="flex items-center gap-1 rounded px-1 py-0.5 text-xs text-primary transition-colors hover:bg-primary/10">
+        <svg-icon src="assets/icons/heroicons/outline/plus.svg" [svgClass]="'h-3.5 w-3.5'"></svg-icon>
+        Add
+      </button>
+    </div>
+    <div class="divide-y divide-border">
+      @for (item of wants(); track item.index) {
+        <app-expense-row
+          [expense]="item.expense"
+          [index]="item.index"
+          [totalPayments]="service.totalPayments()"
+          (expenseChange)="onExpenseChange(item.index, $event)">
+        </app-expense-row>
+      }
+      @if (wants().length === 0) {
+        <p class="py-3 text-xs text-muted-foreground">No wants added yet.</p>
+      }
+    </div>
+  </div>
+
+  <!-- Debts Section -->
+  <div>
+    <div class="mb-1 flex items-center justify-between">
+      <h4 class="text-sm font-semibold text-foreground">Debts</h4>
+      <button
+        (click)="addDebt()"
+        class="flex items-center gap-1 rounded px-1 py-0.5 text-xs text-primary transition-colors hover:bg-primary/10">
+        <svg-icon src="assets/icons/heroicons/outline/plus.svg" [svgClass]="'h-3.5 w-3.5'"></svg-icon>
+        Add
+      </button>
+    </div>
+    <div class="mb-1 flex justify-end pr-1 text-xs text-muted-foreground">
+      <span class="w-36 text-right">% of monthly payments</span>
+    </div>
+    <div class="divide-y divide-border">
+      @for (item of debts(); track item.index) {
+        <app-debt-row
+          [debt]="item.debt"
+          [index]="item.index"
+          [totalPayments]="service.totalPayments()"
+          (debtChange)="onDebtChange(item.index, $event)">
+        </app-debt-row>
+      }
+      @if (debts().length === 0) {
+        <p class="py-3 text-xs text-muted-foreground">No debts added yet.</p>
+      }
+    </div>
   </div>
 </div>

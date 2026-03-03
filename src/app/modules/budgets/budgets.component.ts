@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BudgetPlanService } from '../../core/services/budget-plan.service';
 import { ExpenseCardComponent } from './components/expense-card/expense-card.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SummaryCardComponent } from './components/summary-card/summary-card.component';
@@ -6,9 +7,8 @@ import { IncomeCardComponent } from './components/income-card/income-card.compon
 
 @Component({
   selector: 'app-budgets',
-  imports: [HeaderComponent, SummaryCardComponent, IncomeCardComponent, ExpenseCardComponent  ],
+  imports: [HeaderComponent, SummaryCardComponent, IncomeCardComponent, ExpenseCardComponent],
+  providers: [BudgetPlanService],
   templateUrl: './budgets.component.html',
 })
-export class BudgetsComponent {
-
-}
+export class BudgetsComponent {}

@@ -1,0 +1,47 @@
+<div class="py-2">
+  <div class="flex items-center gap-2">
+    <!-- Left: icon + name -->
+    <div class="flex min-w-0 flex-1 items-center gap-2">
+      <svg-icon
+        src="assets/icons/heroicons/outline/arrow-long-right.svg"
+        [svgClass]="'h-4 w-4 shrink-0 text-muted-foreground'">
+      </svg-icon>
+      <input
+        type="text"
+        [(ngModel)]="nameDisplay"
+        (focus)="onNameFocus()"
+        (blur)="onNameBlur()"
+        class="min-w-0 flex-1 truncate bg-transparent text-sm font-medium text-foreground placeholder:text-muted-foreground focus:outline-none" />
+    </div>
+
+    <!-- Right: percentage (readonly) + amount (editable) -->
+    <div class="flex shrink-0 items-center gap-3">
+      <!-- Percentage: readonly -->
+      <div class="flex items-center gap-0.5">
+        <span class="w-12 text-right text-sm text-muted-foreground">{{ percentage }}</span>
+        <span class="text-xs text-muted-foreground">%</span>
+      </div>
+
+      <!-- Amount: editable -->
+      <div class="flex flex-col items-end">
+        <div class="flex items-center gap-0.5">
+          <span class="text-xs text-muted-foreground">$</span>
+          <input
+            type="text"
+            inputmode="decimal"
+            [(ngModel)]="amtDisplay"
+            (focus)="onAmtFocus()"
+            (blur)="onAmtBlur()"
+            class="w-20 rounded bg-transparent px-1 text-right text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary" />
+        </div>
+        @if (amtError) {
+          <span class="text-xs text-destructive">{{ amtError }}</span>
+        }
+      </div>
+    </div>
+  </div>
+
+  @if (nameError) {
+    <p class="mt-0.5 pl-6 text-xs text-destructive">{{ nameError }}</p>
+  }
+</div>

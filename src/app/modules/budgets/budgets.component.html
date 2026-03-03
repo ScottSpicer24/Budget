@@ -1,4 +1,13 @@
 <app-header></app-header>
-<app-summary-card></app-summary-card>
-<app-income-card></app-income-card>
-<app-expense-card></app-expense-card>
+
+<!-- Summary Card -->
+
+<div class="grid grid-cols-1 gap-4 pb-4 md:grid-cols-3">
+  <div class="flex flex-col gap-4 md:col-span-2">
+    <app-income-card></app-income-card>
+    <app-expense-card></app-expense-card>
+  </div>
+  <div class="h-full min-h-0">
+    <app-summary-card></app-summary-card>
+  </div>
+</div>

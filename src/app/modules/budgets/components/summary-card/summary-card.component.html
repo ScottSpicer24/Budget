@@ -1,8 +1,125 @@
-<div class="flex h-[420px] flex-col rounded-lg bg-background px-8 py-8"><
+<div class="flex h-full min-h-[180px] flex-col overflow-y-auto rounded-lg bg-background px-8 py-8 md:sticky md:top-4 md:max-h-[calc(100vh_-_10rem)]">
+  <!-- Header -->
   <div class="mb-4 flex items-center justify-between">
-      <div class="flex-col">
-          <h3 class="text-md font-bold text-foreground">Summary</h3>
-          <!-- <span class="text-xs text-muted-foreground"></span>-->
+    <h3 class="text-md font-bold text-foreground">Summary</h3>
+  </div>
+
+  <!-- Donut Chart -->
+  @if (hasChartData()) {
+    <div class="flex justify-center">
+      <apx-chart
+        [series]="chartOptions.series!"
+        [chart]="chartOptions.chart!"
+        [labels]="chartOptions.labels!"
+        [dataLabels]="chartOptions.dataLabels!"
+        [legend]="chartOptions.legend!"
+        [plotOptions]="chartOptions.plotOptions!"
+        [stroke]="chartOptions.stroke!"
+        [fill]="chartOptions.fill!"
+        [tooltip]="chartOptions.tooltip!"
+        [theme]="chartOptions.theme!"
+        [colors]="chartOptions.colors!"
+        [responsive]="chartOptions.responsive!">
+      </apx-chart>
+    </div>
+  } @else {
+    <div class="flex h-[200px] items-center justify-center rounded-lg border border-dashed border-border">
+      <span class="text-xs text-muted-foreground">No expense data yet</span>
+    </div>
+  }
+
+  <!-- Breakdown -->
+  <div class="mt-4 flex flex-col gap-3">
+
+    <!-- Income -->
+    <div class="flex items-center justify-between text-sm">
+      <span class="font-semibold text-lg text-foreground">Income</span>
+      <span class="font-semibold text-lg text-foreground ext-green-500 dark:text-green-400">{{ service.totalIncome() | currency }}</span>
+    </div>
+
+    <!-- Needs Section -->
+    @if (needsItems().length > 0) {
+      <div>
+        <div class="mb-1 flex items-center justify-between text-sm">
+          <span class="font-medium text-lg text-foreground">Needs</span>
+          <span class="font-medium text-lg text-red-500 dark:text-red-400">−{{ totalNeeds() | currency }}</span>
+        </div>
+        <div class="flex flex-col gap-0.5 pl-3">
+          @for (item of needsItems().slice(0, MAX_VISIBLE); track $index) {
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex min-w-0 items-center gap-1.5">
+                <span class="h-1.5 w-1.5 shrink-0 rounded-full" [style.background]="item.color"></span>
+                <span class="truncate text-sm text-muted-foreground">{{ item.name }}</span>
+              </div>
+              <span class="shrink-0 text-sm text-foreground">{{ item.amount | currency }}</span>
+            </div>
+          }
+          @if (needsItems().length > MAX_VISIBLE) {
+            <span class="pl-3 text-sm text-muted-foreground">... {{ needsItems().length - MAX_VISIBLE }} more</span>
+          }
+        </div>
       </div>
+    }
+
+    <!-- Wants Section -->
+    @if (wantsItems().length > 0) {
+      <div>
+        <div class="mb-1 flex items-center justify-between text-sm">
+          <span class="font-medium text-lg text-foreground">Wants</span>
+          <span class="font-medium text-lg text-red-500 dark:text-red-400">−{{ totalWants() | currency }}</span>
+        </div>
+        <div class="flex flex-col gap-0.5 pl-3">
+          @for (item of wantsItems().slice(0, MAX_VISIBLE); track $index) {
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex min-w-0 items-center gap-1.5">
+                <span class="h-1.5 w-1.5 shrink-0 rounded-full" [style.background]="item.color"></span>
+                <span class="truncate text-sm text-muted-foreground">{{ item.name }}</span>
+              </div>
+              <span class="shrink-0 text-sm text-foreground">{{ item.amount | currency }}</span>
+            </div>
+          }
+          @if (wantsItems().length > MAX_VISIBLE) {
+            <span class="pl-3 text-sm text-muted-foreground">... {{ wantsItems().length - MAX_VISIBLE }} more</span>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- Debts Section -->
+    @if (debtsItems().length > 0) {
+      <div>
+        <div class="mb-1 flex items-center justify-between text-sm">
+          <span class="font-medium text-lg text-foreground">Debts</span>
+          <span class="font-medium text-lg text-red-500 dark:text-red-400">−{{ service.totalDebtPayments() | currency }}</span>
+        </div>
+        <div class="flex flex-col gap-0.5 pl-3">
+          @for (item of debtsItems().slice(0, MAX_VISIBLE); track $index) {
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex min-w-0 items-center gap-1.5">
+                <span class="h-1.5 w-1.5 shrink-0 rounded-full" [style.background]="item.color"></span>
+                <span class="truncate text-sm text-muted-foreground">{{ item.name }}</span>
+              </div>
+              <span class="shrink-0 text-sm text-foreground">{{ item.amount | currency }}</span>
+            </div>
+          }
+          @if (debtsItems().length > MAX_VISIBLE) {
+            <span class="pl-3 text-sm text-muted-foreground">... {{ debtsItems().length - MAX_VISIBLE }} more</span>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- Remaining -->
+    <div class="border-t border-border pt-3">
+      <div class="flex items-center justify-between  text-lg font-semibold">
+        <span class="text-foreground">Remaining</span>
+        @if (remaining() >= 0) {
+          <span class="text-green-500 dark:text-green-400">{{ remaining() | currency }}</span>
+        } @else {
+          <span class="text-red-500 dark:text-red-400">{{ remaining() | currency }}</span>
+        }
+      </div>
+    </div>
+
   </div>
 </div>

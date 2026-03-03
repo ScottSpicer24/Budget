@@ -1,0 +1,32 @@
+{
+  "income": 2000,
+  "savingsGoal": 1000,
+  "espense": [
+    {
+      "name": "Food",
+      "need": true,
+      "amount": 400
+    },
+    {
+      "name": "Entertainment",
+      "need": false,
+      "amount": 400
+    }
+  ],
+  "debts": [
+    {
+      "name": "Credit Card",
+      "totalAmount": 1000,
+      "remainingAmount": 1000,
+      "interestRate": 0.1,
+      "minimumMonthlyPayment": 100
+    },
+    {
+      "name": "Mortgage",
+      "totalAmount": 200000,
+      "remainingAmount": 190000,
+      "interestRate": 0.03,
+      "minimumMonthlyPayment": 1000
+    }
+  ]
+}
