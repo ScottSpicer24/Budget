@@ -48,9 +48,57 @@ export class SummaryCardComponent {
 
   protected readonly MAX_VISIBLE = 3;
 
-  private readonly NEEDS_PALETTE = ['#3b82f6', '#2563eb', '#60a5fa', '#1d4ed8', '#93c5fd'];
-  private readonly WANTS_PALETTE = ['#a855f7', '#9333ea', '#c084fc', '#7c3aed', '#d8b4fe'];
-  private readonly DEBTS_PALETTE = ['#ef4444', '#dc2626', '#f87171', '#b91c1c', '#fca5a5'];
+  private readonly NEEDS_PALETTE = [ // green/tan/brown
+    '#295135',
+    '#5A6650',
+    '#0E402D',
+    '#43281C',
+    '#48392A ',
+    '#36453B',
+    '#C2C1A5',
+    '#447604',
+    '#6CC551',
+    '#716A5C',
+    '#2CF6B3',
+    '#A39B8B',
+    '#2CF6B3',
+    '#CEE397',
+    '#56876D',
+  ];
+  private readonly WANTS_PALETTE = [ // purple/blue
+    '#1C6E8C',
+    '#274156',
+    '#52AD9C',
+    '#9FFCDF',
+    '#7209B7',
+    '#4361EE',
+    '#3A0CA3',
+    '#4CC9F0',
+    '#5DB7DE',
+    '#ECB0E1',
+    '#9CF6F6',
+    '#C9DDFF',
+    '#C1AAC0',
+    '#031927',
+    '#508AA8'
+    ];
+  private readonly DEBTS_PALETTE = [ // pink/red
+    '#A51C30',
+    '#F72585',
+    '#C46D5E',
+    '#DE6C83',
+    '#C52233',
+    '#820B8A',
+    '#580C1F',
+    '#AF9AB2',
+    '#F56960',
+    '#672A4E',
+    '#EA9E8D',
+    '#A7333F',
+    '#D64550',
+    '#74121D',
+    '#F4E04D',
+  ];
 
   protected needsItems = computed<SummaryItem[]>(() =>
     (this.service.budgetPlan()?.espense.filter((e) => e.need) ?? [])

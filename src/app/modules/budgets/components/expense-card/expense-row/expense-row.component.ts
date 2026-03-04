@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { Expense } from '../../../../../shared/models/budget';
+import { BudgetPlanService } from '../../../../../core/services/budget-plan.service';
 
 @Component({
   selector: 'app-expense-row',

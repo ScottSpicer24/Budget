@@ -45,5 +45,6 @@ export interface Debt {
   remainingAmount: number;
   interestRate: number;
   minimumMonthlyPayment: number;
+  monthlyPayment: number;
 }
 

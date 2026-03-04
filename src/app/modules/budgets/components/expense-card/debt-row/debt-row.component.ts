@@ -12,31 +12,43 @@ export class DebtRowComponent implements OnChanges {
   @Input() debt!: Debt;
   @Input() index!: number;
   @Input() totalPayments!: number;
+  @Input() editMode = false;
   @Output() debtChange = new EventEmitter<Debt>();
 
   nameDisplay = '';
   pctDisplay = '';
-  amtDisplay = '';
+  paymentDisplay = '';
+  remainingDisplay = '';
+  interestRateDisplay = '';
+  minimumPaymentDisplay = '';
 
   nameError = '';
-  pctError = '';
-  amtError = '';
+  paymentError = '';
+  remainingError = '';
+  interestRateError = '';
+  minimumPaymentError = '';
 
   private nameFocused = false;
-  private pctFocused = false;
-  private amtFocused = false;
+  private paymentFocused = false;
+  private remainingFocused = false;
+  private interestRateFocused = false;
+  private minimumPaymentFocused = false;
 
   private get currentPct(): number {
-    return this.totalPayments > 0 ? (this.debt.minimumMonthlyPayment / this.totalPayments) * 100 : 0;
+    const monthlyPayment = this.debt.monthlyPayment ?? this.debt.minimumMonthlyPayment;
+    return this.totalPayments > 0 ? (monthlyPayment / this.totalPayments) * 100 : 0;
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['debt']) {
       if (!this.nameFocused) this.nameDisplay = this.debt.name;
-      if (!this.amtFocused) this.amtDisplay = this.debt.minimumMonthlyPayment.toFixed(2);
+      if (!this.paymentFocused) this.paymentDisplay = (this.debt.monthlyPayment ?? this.debt.minimumMonthlyPayment).toFixed(2);
+      if (!this.remainingFocused) this.remainingDisplay = this.debt.remainingAmount.toFixed(2);
+      if (!this.interestRateFocused) this.interestRateDisplay = this.debt.interestRate.toFixed(2);
+      if (!this.minimumPaymentFocused) this.minimumPaymentDisplay = this.debt.minimumMonthlyPayment.toFixed(2);
     }
     if (changes['debt'] || changes['totalPayments']) {
-      if (!this.pctFocused) this.pctDisplay = this.currentPct.toFixed(1);
+      this.pctDisplay = this.currentPct.toFixed(1);
     }
   }
 
@@ -44,12 +56,20 @@ export class DebtRowComponent implements OnChanges {
     this.nameFocused = true;
   }
 
-  onPctFocus() {
-    this.pctFocused = true;
+  onPaymentFocus() {
+    this.paymentFocused = true;
   }
 
-  onAmtFocus() {
-    this.amtFocused = true;
+  onRemainingFocus() {
+    this.remainingFocused = true;
+  }
+
+  onInterestRateFocus() {
+    this.interestRateFocused = true;
+  }
+
+  onMinimumPaymentFocus() {
+    this.minimumPaymentFocused = true;
   }
 
   onNameBlur() {
@@ -66,29 +86,67 @@ export class DebtRowComponent implements OnChanges {
     }
   }
 
-  onPctBlur() {
-    this.pctFocused = false;
-    this.pctError = '';
-    const val = parseFloat(this.pctDisplay);
-    if (isNaN(val) || val < 0 || val > 100) {
-      this.pctError = 'Enter a value 0 - 100';
-      this.pctDisplay = this.currentPct.toFixed(1);
+  onRemainingBlur() {
+    this.remainingFocused = false;
+    this.remainingError = '';
+    const val = parseFloat(this.remainingDisplay);
+    if (isNaN(val) || val < 0) {
+      this.remainingError = 'Enter a value >= 0';
+      this.remainingDisplay = this.debt.remainingAmount.toFixed(2);
       return;
     }
-    const newAmt = parseFloat(((val / 100) * this.totalPayments).toFixed(2));
-    this.amtDisplay = newAmt.toFixed(2);
-    this.debtChange.emit({ ...this.debt, minimumMonthlyPayment: newAmt });
+    this.debtChange.emit({ ...this.debt, remainingAmount: parseFloat(val.toFixed(2)) });
   }
 
-  onAmtBlur() {
-    this.amtFocused = false;
-    this.amtError = '';
-    const val = parseFloat(this.amtDisplay);
+  onInterestRateBlur() {
+    this.interestRateFocused = false;
+    this.interestRateError = '';
+    const val = parseFloat(this.interestRateDisplay);
     if (isNaN(val) || val < 0) {
-      this.amtError = 'Enter a value ≥ 0';
-      this.amtDisplay = this.debt.minimumMonthlyPayment.toFixed(2);
+      this.interestRateError = 'Enter a value >= 0';
+      this.interestRateDisplay = this.debt.interestRate.toFixed(2);
       return;
     }
-    this.debtChange.emit({ ...this.debt, minimumMonthlyPayment: val });
+    this.debtChange.emit({ ...this.debt, interestRate: parseFloat(val.toFixed(2)) });
+  }
+
+  onMinimumPaymentBlur() {
+    this.minimumPaymentFocused = false;
+    this.minimumPaymentError = '';
+    const val = parseFloat(this.minimumPaymentDisplay);
+    if (isNaN(val) || val < 0) {
+      this.minimumPaymentError = 'Enter a value >= 0';
+      this.minimumPaymentDisplay = this.debt.minimumMonthlyPayment.toFixed(2);
+      return;
+    }
+
+    const nextMin = parseFloat(val.toFixed(2));
+    const nextPayment = Math.max(this.debt.monthlyPayment ?? 0, nextMin);
+    this.debtChange.emit({
+      ...this.debt,
+      minimumMonthlyPayment: nextMin,
+      monthlyPayment: nextPayment,
+    });
+  }
+
+  onPaymentBlur() {
+    this.paymentFocused = false;
+    this.paymentError = '';
+    const val = parseFloat(this.paymentDisplay);
+
+    if (isNaN(val)) {
+      this.paymentError = 'Enter a valid dollar amount';
+      this.paymentDisplay = (this.debt.monthlyPayment ?? this.debt.minimumMonthlyPayment).toFixed(2);
+      return;
+    }
+
+    if (val < this.debt.minimumMonthlyPayment) {
+      this.paymentError = `Payment must be at least $${this.debt.minimumMonthlyPayment.toFixed(2)}`;
+      this.paymentDisplay = this.debt.minimumMonthlyPayment.toFixed(2);
+      return;
+    }
+
+    const nextPayment = parseFloat(val.toFixed(2));
+    this.debtChange.emit({ ...this.debt, monthlyPayment: nextPayment });
   }
 }

@@ -5,11 +5,6 @@
       <h3 class="text-md font-bold text-foreground">Expenses</h3>
       <span class="text-xs text-muted-foreground">Budgeted spending by category</span>
     </div>
-    <!-- Column labels -->
-    <div class="flex items-center gap-3 pr-1 text-xs text-muted-foreground">
-      <span class="w-16 text-right">% of total</span>
-      <span class="w-20 text-right">Amount</span>
-    </div>
   </div>
 
   <!-- Needs Section -->
@@ -25,12 +20,18 @@
     </div>
     <div class="divide-y divide-border">
       @for (item of needs(); track item.index) {
-        <app-expense-row
-          [expense]="item.expense"
-          [index]="item.index"
-          [totalPayments]="service.totalPayments()"
-          (expenseChange)="onExpenseChange(item.index, $event)">
-        </app-expense-row>
+        <div class="flex items-center justify-between">
+          <app-expense-row
+            class="flex-1 min-w-0"
+            [expense]="item.expense"
+            [index]="item.index"
+            [totalPayments]="service.totalPayments()"
+            (expenseChange)="onExpenseChange(item.index, $event)">
+          </app-expense-row>
+          <button (click)="removeExpense(item.index)" class="flex items-center gap-1 rounded px-1 py-0.5 text-xs text-primary transition-colors hover:bg-primary/10">
+            <svg-icon src="assets/icons/heroicons/outline/minus.svg" [svgClass]="'h-4 w-4'"></svg-icon>
+          </button>
+        </div>
       }
       @if (needs().length === 0) {
         <p class="py-3 text-xs text-muted-foreground">No needs added yet.</p>
@@ -51,12 +52,18 @@
     </div>
     <div class="divide-y divide-border">
       @for (item of wants(); track item.index) {
-        <app-expense-row
-          [expense]="item.expense"
-          [index]="item.index"
-          [totalPayments]="service.totalPayments()"
-          (expenseChange)="onExpenseChange(item.index, $event)">
-        </app-expense-row>
+        <div class="flex items-center justify-between">
+          <app-expense-row
+            class="flex-1 min-w-0"
+            [expense]="item.expense"
+            [index]="item.index"
+            [totalPayments]="service.totalPayments()"
+            (expenseChange)="onExpenseChange(item.index, $event)">
+          </app-expense-row>
+          <button (click)="removeExpense(item.index)" class="flex items-center gap-1 rounded px-1 py-0.5 text-xs text-primary transition-colors hover:bg-primary/10">
+            <svg-icon src="assets/icons/heroicons/outline/minus.svg" [svgClass]="'h-4 w-4'"></svg-icon>
+          </button>
+        </div>
       }
       @if (wants().length === 0) {
         <p class="py-3 text-xs text-muted-foreground">No wants added yet.</p>
@@ -75,17 +82,35 @@
         Add
       </button>
     </div>
-    <div class="mb-1 flex justify-end pr-1 text-xs text-muted-foreground">
-      <span class="w-36 text-right">% of monthly payments</span>
-    </div>
+
     <div class="divide-y divide-border">
       @for (item of debts(); track item.index) {
-        <app-debt-row
-          [debt]="item.debt"
-          [index]="item.index"
-          [totalPayments]="service.totalPayments()"
-          (debtChange)="onDebtChange(item.index, $event)">
-        </app-debt-row>
+        <div class="flex items-center justify-between">
+          <app-debt-row
+            class="flex-1 min-w-0"
+            [debt]="item.debt"
+            [index]="item.index"
+            [totalPayments]="service.totalPayments()"
+            [editMode]="isDebtEditable(item.index)"
+            (debtChange)="onDebtChange(item.index, $event)">
+          </app-debt-row>
+          <div class="ml-2 flex flex-col items-center gap-1">
+            <button
+              (click)="toggleDebtEdit(item.index)"
+              class="flex items-center gap-1 rounded px-1 py-0.5 text-xs text-primary transition-colors hover:bg-primary/10"
+              [attr.aria-label]="isDebtEditable(item.index) ? 'Disable edit mode' : 'Enable edit mode'">
+              <svg-icon
+                [src]="isDebtEditable(item.index)
+                ? 'assets/icons/heroicons/outline/lock-open.svg'
+                : 'assets/icons/heroicons/outline/lock-closed.svg'"
+                [svgClass]="'h-4 w-4'">
+              </svg-icon>
+            </button>
+            <button (click)="removeDebt(item.index)" class="flex items-center gap-1 rounded px-1 py-0.5 text-xs text-primary transition-colors hover:bg-primary/10">
+              <svg-icon src="assets/icons/heroicons/outline/minus.svg" [svgClass]="'h-4 w-4 text-primary'"></svg-icon>
+            </button>
+          </div>
+        </div>
       }
       @if (debts().length === 0) {
         <p class="py-3 text-xs text-muted-foreground">No debts added yet.</p>

@@ -14,7 +14,7 @@ export class BudgetPlanService {
   readonly totalExpenses = computed(() => this._budgetPlan()?.espense.reduce((sum, e) => sum + e.amount, 0) ?? 0);
 
   readonly totalDebtPayments = computed(
-    () => this._budgetPlan()?.debts.reduce((sum, d) => sum + d.minimumMonthlyPayment, 0) ?? 0,
+    () => this._budgetPlan()?.debts.reduce((sum, d) => sum + (d.monthlyPayment ?? d.minimumMonthlyPayment), 0) ?? 0,
   );
 
   readonly totalPayments = computed(() => this.totalExpenses() + this.totalDebtPayments());
@@ -36,11 +36,20 @@ export class BudgetPlanService {
         spent: e.spent ?? 0,
       }));
 
+      const debts: Debt[] = (data.debts || []).map((d: any) => ({
+        name: d.name,
+        totalAmount: d.totalAmount ?? 0,
+        remainingAmount: d.remainingAmount ?? d.totalAmount ?? 0,
+        interestRate: d.interestRate ?? 0,
+        minimumMonthlyPayment: d.minimumMonthlyPayment ?? 0,
+        monthlyPayment: d.monthlyPayment ?? d.minimumMonthlyPayment ?? 0,
+      }));
+
       const plan: BudgetPlan = {
         incomes,
         savingsGoal: data.savingsGoal,
         espense: expenses,
-        debts: data.debts || [],
+        debts,
       };
 
       this._budgetPlan.set(plan);
@@ -75,7 +84,15 @@ export class BudgetPlanService {
   addDebt() {
     const plan = this._budgetPlan();
     if (!plan) return;
-    const newDebt: Debt = { name: 'New Debt', totalAmount: 0, remainingAmount: 0, interestRate: 0, minimumMonthlyPayment: 0 };
+    const newTotalAmount = 0;
+    const newDebt: Debt = {
+      name: 'New Debt',
+      totalAmount: newTotalAmount,
+      remainingAmount: newTotalAmount,
+      interestRate: 0,
+      minimumMonthlyPayment: 0,
+      monthlyPayment: 0,
+    };
     this._budgetPlan.set({ ...plan, debts: [...plan.debts, newDebt] });
   }
 
@@ -83,5 +100,21 @@ export class BudgetPlanService {
     const plan = this._budgetPlan();
     if (!plan) return;
     this._budgetPlan.set({ ...plan, incomes: [...incomes] });
+  }
+
+  removeExpense(index: number) {
+    const plan = this._budgetPlan();
+    if (!plan) return;
+    const newExpenses = [...plan.espense];
+    newExpenses.splice(index, 1);
+    this._budgetPlan.set({ ...plan, espense: newExpenses });
+  }
+
+  removeDebt(index: number) {
+    const plan = this._budgetPlan();
+    if (!plan) return;
+    const newDebts = [...plan.debts];
+    newDebts.splice(index, 1);
+    this._budgetPlan.set({ ...plan, debts: newDebts });
   }
 }

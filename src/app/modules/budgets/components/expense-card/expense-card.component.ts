@@ -12,6 +12,7 @@ import { ExpenseRowComponent } from './expense-row/expense-row.component';
 })
 export class ExpenseCardComponent {
   protected service = inject(BudgetPlanService);
+  protected editableDebtIndexes = new Set<number>();
 
   protected needs = computed(() =>
     (this.service.budgetPlan()?.espense ?? []).map((expense, index) => ({ expense, index })).filter(({ expense }) => expense.need),
@@ -42,6 +43,34 @@ export class ExpenseCardComponent {
   }
 
   addDebt() {
+    const nextIndex = this.debts().length;
     this.service.addDebt();
+    this.editableDebtIndexes.add(nextIndex);
+  }
+
+  removeExpense(index: number) {
+    this.service.removeExpense(index);
+  }
+
+  removeDebt(index: number) {
+    this.service.removeDebt(index);
+    const next = new Set<number>();
+    this.editableDebtIndexes.forEach((idx) => {
+      if (idx < index) next.add(idx);
+      if (idx > index) next.add(idx - 1);
+    });
+    this.editableDebtIndexes = next;
+  }
+
+  toggleDebtEdit(index: number) {
+    if (this.editableDebtIndexes.has(index)) {
+      this.editableDebtIndexes.delete(index);
+      return;
+    }
+    this.editableDebtIndexes.add(index);
+  }
+
+  isDebtEditable(index: number): boolean {
+    return this.editableDebtIndexes.has(index);
   }
 }
