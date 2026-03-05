@@ -10,5 +10,11 @@
         "bank" : "BofA",
         "type" : "savings",
         "balance": 8000.63
-    }
+    },
+    {
+      "id" : 3,
+      "bank" : "Black Rock",
+      "type" : "savings",
+      "balance": 18963.12
+  }
 ]

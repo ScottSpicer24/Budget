@@ -44,7 +44,7 @@ export class DebtRowComponent implements OnChanges {
       if (!this.nameFocused) this.nameDisplay = this.debt.name;
       if (!this.paymentFocused) this.paymentDisplay = (this.debt.monthlyPayment ?? this.debt.minimumMonthlyPayment).toFixed(2);
       if (!this.remainingFocused) this.remainingDisplay = this.debt.remainingAmount.toFixed(2);
-      if (!this.interestRateFocused) this.interestRateDisplay = this.debt.interestRate.toFixed(2);
+      if (!this.interestRateFocused) this.interestRateDisplay = (this.debt.interestRate * 100).toFixed(2);
       if (!this.minimumPaymentFocused) this.minimumPaymentDisplay = this.debt.minimumMonthlyPayment.toFixed(2);
     }
     if (changes['debt'] || changes['totalPayments']) {

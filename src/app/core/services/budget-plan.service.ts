@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { BudgetPlan, Debt, Expense, Income } from '../../shared/models/budget';
+import { BudgetPlan, Debt, Expense, Income, SavingsGoal } from '../../shared/models/budget';
 
 @Injectable()
 export class BudgetPlanService {
@@ -18,6 +18,10 @@ export class BudgetPlanService {
   );
 
   readonly totalPayments = computed(() => this.totalExpenses() + this.totalDebtPayments());
+
+  readonly savingsGoals = computed(() =>
+    [...(this._budgetPlan()?.savingsGoal ?? [])].sort((a, b) => a.priority - b.priority),
+  );
 
   constructor() {
     this.load();
@@ -45,9 +49,22 @@ export class BudgetPlanService {
         monthlyPayment: d.monthlyPayment ?? d.minimumMonthlyPayment ?? 0,
       }));
 
+      const savingsGoals: SavingsGoal[] = (data.savingsGoals || data.savingsGoal || [])
+        .map((g: any) => ({
+          name: g.name ?? 'Unnamed',
+          priority: g.priority ?? 0,
+          targetAmount: g.targetAmount ?? 0,
+          fillFull: g.fillFull ?? true,
+          currentAmount: g.currentAmount,
+          monthlyContribution: g.monthlyContribution,
+          lastUpdatedMonth: g.lastUpdatedMonth,
+          lastUpdatedYear: g.lastUpdatedYear,
+        }))
+        .sort((a: SavingsGoal, b: SavingsGoal) => a.priority - b.priority);
+
       const plan: BudgetPlan = {
         incomes,
-        savingsGoal: data.savingsGoal,
+        savingsGoal: savingsGoals,
         espense: expenses,
         debts,
       };
@@ -116,5 +133,42 @@ export class BudgetPlanService {
     const newDebts = [...plan.debts];
     newDebts.splice(index, 1);
     this._budgetPlan.set({ ...plan, debts: newDebts });
+  }
+
+  updateSavingsGoal(index: number, updated: SavingsGoal) {
+    const plan = this._budgetPlan();
+    if (!plan) return;
+    const sorted = [...plan.savingsGoal].sort((a, b) => a.priority - b.priority);
+    sorted[index] = { ...updated };
+    this._budgetPlan.set({ ...plan, savingsGoal: sorted });
+  }
+
+  addSavingsGoal() {
+    const plan = this._budgetPlan();
+    if (!plan) return;
+    const maxPriority = plan.savingsGoal.reduce((max, g) => Math.max(max, g.priority), 0);
+    const newGoal: SavingsGoal = {
+      name: 'New Goal',
+      priority: maxPriority + 1,
+      targetAmount: 0,
+      fillFull: true,
+    };
+    this._budgetPlan.set({ ...plan, savingsGoal: [...plan.savingsGoal, newGoal] });
+  }
+
+  removeSavingsGoal(index: number) {
+    const plan = this._budgetPlan();
+    if (!plan) return;
+    const sorted = [...plan.savingsGoal].sort((a, b) => a.priority - b.priority);
+    sorted.splice(index, 1);
+    const renumbered = sorted.map((g, i) => ({ ...g, priority: i + 1 }));
+    this._budgetPlan.set({ ...plan, savingsGoal: renumbered });
+  }
+
+  reorderSavingsGoals(goals: SavingsGoal[]) {
+    const plan = this._budgetPlan();
+    if (!plan) return;
+    const reordered = goals.map((g, i) => ({ ...g, priority: i + 1 }));
+    this._budgetPlan.set({ ...plan, savingsGoal: reordered });
   }
 }

@@ -53,7 +53,7 @@ export class SummaryCardComponent {
     '#5A6650',
     '#0E402D',
     '#43281C',
-    '#48392A ',
+    '#48392A',
     '#36453B',
     '#C2C1A5',
     '#447604',
@@ -169,7 +169,7 @@ export class SummaryCardComponent {
         toolbar: { show: false },
       },
       plotOptions: {
-        pie: { donut: { size: '65%' } },
+        pie: { donut: { size: '55%' } },
       },
       dataLabels: { enabled: false },
       legend: { show: false },

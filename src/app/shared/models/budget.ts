@@ -23,7 +23,7 @@ export interface Budget {
 export interface BudgetPlan {
   incomes: Income[];
   espense: Expense[];
-  savingsGoal: number;
+  savingsGoal: SavingsGoal[];
   debts: Debt[];
 }
 
@@ -48,3 +48,13 @@ export interface Debt {
   monthlyPayment: number;
 }
 
+export interface SavingsGoal {
+  name: string;
+  priority: number;
+  targetAmount: number;
+  fillFull: boolean;
+  currentAmount?: number;
+  monthlyContribution?: number;
+  lastUpdatedMonth?: number;
+  lastUpdatedYear?: number;
+}

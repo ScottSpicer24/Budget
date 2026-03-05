@@ -36,6 +36,7 @@ type DonutChartOptions = {
 })
 export class BalanceCardComponent {
   balance: number = 0.0;
+  balanceDisplay: string = '0.00';
   public chartOptions: Partial<DonutChartOptions>;
 
   private _accounts: Account[] = [];
@@ -64,7 +65,7 @@ export class BalanceCardComponent {
       plotOptions: {
         pie: {
           donut: {
-            size: '70%',
+            size: '65%',
           },
         },
       },
@@ -101,6 +102,7 @@ export class BalanceCardComponent {
 
   private recalculate(): void {
     this.balance = this._accounts.reduce((sum, a) => sum + Number(a.balance ?? 0), 0);
+    this.balanceDisplay = this.balance.toFixed(2).toString();
 
     const series: number[] = [];
     const labels: string[] = [];

@@ -1,4 +1,4 @@
-<div class="flex h-full min-h-[180px] flex-col overflow-y-auto rounded-lg bg-background px-8 py-8 md:sticky md:top-4 md:max-h-[calc(100vh_-_10rem)]">
+<div class="flex min-h-[180px] flex-col overflow-y-auto rounded-lg bg-background px-8 py-8 md:sticky md:top-4 md:max-h-[calc(100vh_-_10rem)]">
   <!-- Header -->
   <div class="mb-4 flex items-center justify-between">
     <h3 class="text-md font-bold text-foreground">Summary</h3>
@@ -111,12 +111,15 @@
 
     <!-- Remaining -->
     <div class="border-t border-border pt-3">
-      <div class="flex items-center justify-between  text-lg font-semibold">
-        <span class="text-foreground">Remaining</span>
+      <div class="flex items-center justify-between font-semibold">
+        <div class="flex flex-col items-center text-lg">
+          <span class="text-foreground">Remaining for</span>
+          <span class="text-foreground">Saving Goals</span>
+        </div>
         @if (remaining() >= 0) {
-          <span class="text-green-500 dark:text-green-400">{{ remaining() | currency }}</span>
+          <span class="text-2xl text-green-500 dark:text-green-400">{{ remaining() | currency }}</span>
         } @else {
-          <span class="text-red-500 dark:text-red-400">{{ remaining() | currency }}</span>
+          <span class="text-2xl text-red-500 dark:text-red-400">{{ remaining() | currency }}</span>
         }
       </div>
     </div>

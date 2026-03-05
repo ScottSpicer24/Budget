@@ -1,0 +1,152 @@
+<div class="rounded-lg border border-border bg-muted/10 px-4 py-3">
+  <!-- Top row: name + action buttons -->
+  <div class="mb-2 flex items-center justify-between gap-2">
+    @if (locked) {
+      <span class="truncate text-sm font-semibold text-foreground">{{ goal.name }}</span>
+    } @else {
+      <input
+        type="text"
+        [(ngModel)]="nameDisplay"
+        (focus)="onNameFocus()"
+        (blur)="onNameBlur()"
+        class="min-w-0 flex-1 truncate rounded border border-transparent bg-transparent px-1 text-sm font-semibold text-foreground placeholder:text-muted-foreground focus:border-primary/40 focus:outline-none focus:ring-1 focus:ring-primary/40" />
+    }
+
+    <div class="ml-2 flex shrink-0 items-center gap-1">
+      <!-- Lock / Unlock -->
+      <button
+        (click)="toggleLock.emit()"
+        class="rounded p-1 transition-colors hover:bg-primary/10"
+        [attr.aria-label]="locked ? 'Unlock for editing' : 'Lock editing'">
+        <svg-icon
+          [src]="locked
+            ? 'assets/icons/heroicons/outline/lock-closed.svg'
+            : 'assets/icons/heroicons/outline/lock-open.svg'"
+          [svgClass]="'h-4 w-4 text-primary'">
+        </svg-icon>
+      </button>
+
+      <!-- Delete / Confirm -->
+      @if (confirmingDelete) {
+        <div class="flex items-center gap-1 rounded bg-destructive/10 px-2 py-0.5">
+          <span class="text-xs text-destructive">Delete?</span>
+          <button
+            (click)="confirmDelete.emit()"
+            class="rounded px-1.5 py-0.5 text-xs font-semibold text-destructive hover:bg-destructive/20">
+            Yes
+          </button>
+          <button
+            (click)="cancelDelete.emit()"
+            class="rounded px-1.5 py-0.5 text-xs font-semibold text-muted-foreground hover:bg-muted/30">
+            No
+          </button>
+        </div>
+      } @else {
+        <button
+          (click)="requestDelete.emit()"
+          class="rounded p-1 transition-colors hover:bg-primary/10">
+          <svg-icon
+            src="assets/icons/heroicons/outline/minus.svg"
+            [svgClass]="'h-4 w-4 text-primary'">
+          </svg-icon>
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="mb-2">
+    <div class="h-2.5 w-full overflow-hidden rounded-full bg-muted">
+      <div
+        class="h-full rounded-full bg-primary transition-all duration-300"
+        [style.width.%]="progressPercent">
+      </div>
+    </div>
+  </div>
+
+  <!-- Amounts -->
+  <div class="mb-2 flex flex-wrap items-center justify-between gap-2 text-xs">
+    <div class="flex items-center gap-1">
+      <span class="text-muted-foreground">Allocated:</span>
+      @if (locked) {
+        <span class="font-semibold text-foreground">${{ formatCurrency(allocatedAmount) }}</span>
+      } @else {
+        <div class="flex items-center gap-0.5">
+          <span class="text-muted-foreground">$</span>
+          <input
+            type="text"
+            inputmode="decimal"
+            [(ngModel)]="allocatedDisplay"
+            (focus)="onAllocatedFocus()"
+            (blur)="onAllocatedBlur()"
+            class="w-24 rounded border border-transparent bg-transparent px-1 text-xs font-semibold text-foreground focus:border-primary/40 focus:outline-none focus:ring-1 focus:ring-primary/40" />
+        </div>
+      }
+    </div>
+
+    <div class="flex items-center gap-1">
+      <span class="text-muted-foreground">Target:</span>
+      @if (locked) {
+        <span class="font-semibold text-foreground">${{ formatCurrency(goal.targetAmount) }}</span>
+      } @else {
+        <div class="flex items-center gap-0.5">
+          <span class="text-muted-foreground">$</span>
+          <input
+            type="text"
+            inputmode="decimal"
+            [(ngModel)]="targetDisplay"
+            (focus)="onTargetFocus()"
+            (blur)="onTargetBlur()"
+            class="w-24 rounded border border-transparent bg-transparent px-1 text-right text-xs font-semibold text-foreground focus:border-primary/40 focus:outline-none focus:ring-1 focus:ring-primary/40" />
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Fill full toggle + Monthly contribution -->
+  <div class="flex flex-wrap items-center gap-4 text-xs">
+    <div class="flex items-center gap-2">
+      <span class="text-muted-foreground">Fill Full</span>
+      @if (locked) {
+        <div
+          class="relative inline-flex h-5 w-9 items-center rounded-full"
+          [class]="goal.fillFull ? 'bg-primary' : 'bg-muted'">
+          <span
+            class="inline-block h-3.5 w-3.5 rounded-full bg-white shadow transition-transform"
+            [class]="goal.fillFull ? 'translate-x-4' : 'translate-x-0.5'">
+          </span>
+        </div>
+      } @else {
+        <button
+          (click)="onToggleFillFull()"
+          class="relative inline-flex h-5 w-9 items-center rounded-full transition-colors"
+          [class]="goal.fillFull ? 'bg-primary' : 'bg-muted'">
+          <span
+            class="inline-block h-3.5 w-3.5 rounded-full bg-white shadow transition-transform"
+            [class]="goal.fillFull ? 'translate-x-4' : 'translate-x-0.5'">
+          </span>
+        </button>
+      }
+    </div>
+
+    @if (!goal.fillFull) {
+      <div class="flex items-center gap-1">
+        <span class="text-muted-foreground">Monthly:</span>
+        @if (locked) {
+          <span class="font-semibold text-foreground">${{ formatCurrency(goal.monthlyContribution ?? 0) }}</span>
+        } @else {
+          <div class="flex items-center gap-0.5">
+            <span class="text-muted-foreground">$</span>
+            <input
+              type="text"
+              inputmode="decimal"
+              [(ngModel)]="monthlyDisplay"
+              (focus)="onMonthlyFocus()"
+              (blur)="onMonthlyBlur()"
+              class="w-20 rounded border border-transparent bg-transparent px-1 text-xs font-semibold text-foreground focus:border-primary/40 focus:outline-none focus:ring-1 focus:ring-primary/40" />
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>
