@@ -28,6 +28,11 @@ export class Menu {
           route: '/spending',
         },
         {
+          icon: 'assets/icons/heroicons/outline/eye.svg',
+          label: 'Accounts',
+          route: '/accounts',
+        },
+        {
           icon: 'assets/icons/heroicons/outline/lock-closed.svg',
           label: 'Auth',
           route: '/auth',

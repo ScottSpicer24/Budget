@@ -4,6 +4,7 @@ import { LayoutComponent } from './layout.component';
 import { TransactionsComponent } from '../transactions/transactions.component';
 import { BudgetsComponent } from '../budgets/budgets.component';
 import { SpendingComponent } from '../spending/spending.component';
+import { AccountsComponent } from '../accounts/accounts.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,11 @@ const routes: Routes = [
     path: 'spending',
     component: LayoutComponent,
     children: [{ path: '', component: SpendingComponent }],
+  },
+  {
+    path: 'accounts',
+    component: LayoutComponent,
+    children: [{ path: '', component: AccountsComponent }],
   },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: 'error/404' },
