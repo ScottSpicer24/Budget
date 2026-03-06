@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout.component';
 import { TransactionsComponent } from '../transactions/transactions.component';
 import { BudgetsComponent } from '../budgets/budgets.component';
+import { SpendingComponent } from '../spending/spending.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,11 @@ const routes: Routes = [
     path: 'budgets',
     component: LayoutComponent,
     children: [{ path: '', component: BudgetsComponent }],
+  },
+  {
+    path: 'spending',
+    component: LayoutComponent,
+    children: [{ path: '', component: SpendingComponent }],
   },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: 'error/404' },

@@ -85,7 +85,7 @@ export class BudgetPlanService {
   addExpense(need: boolean) {
     const plan = this._budgetPlan();
     if (!plan) return;
-    const newExpense: Expense = { name: 'New Expense', need, amount: 0, spent: 0 };
+    const newExpense: Expense = { name: 'New Expense', need, amount: 0};
     const newPlan = { ...plan, espense: [...plan.espense, newExpense] };
     this._budgetPlan.set(newPlan);
   }

@@ -39,6 +39,8 @@ export class SavingsGoalRowComponent implements OnChanges {
     return value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
 
+  // With get --> it's a getter, accessed like a property...
+  // so you can write progressPercent instead of progressPercent() and it calculates it every time.
   get progressPercent(): number {
     if (this.goal.targetAmount <= 0) return 0;
     return Math.min((this.allocatedAmount / this.goal.targetAmount) * 100, 100);

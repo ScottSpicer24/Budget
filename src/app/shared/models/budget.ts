@@ -1,3 +1,4 @@
+import { ExpenseRowComponent } from './../../modules/budgets/components/expense-card/expense-row/expense-row.component';
 export interface Account {
   id: number;
   bank: string;
@@ -36,7 +37,6 @@ export interface Expense {
   name: string;
   need: boolean;
   amount: number;
-  spent: number;
 }
 
 export interface Debt {
@@ -57,4 +57,11 @@ export interface SavingsGoal {
   monthlyContribution?: number;
   lastUpdatedMonth?: number;
   lastUpdatedYear?: number;
+}
+
+export interface SpendingCategory {
+  expense: Expense;
+  transactions: Transaction[];
+  totalSpent: number;
+  over: boolean;
 }

@@ -5,9 +5,13 @@
 <div class="grid grid-cols-1 gap-4 pb-4 md:grid-cols-3">
   <!-- Income, Expense, Savings Cards -->
   <div class="flex flex-col gap-4 md:col-span-2">
-    <app-income-card></app-income-card>
-    <app-expense-card></app-expense-card>
-    <app-savings-card></app-savings-card>
+    @for (category of spendingCategories; track category.expense.name) {
+      <app-category-card
+        [category]="category"
+        [allCategoryNames]="allCategoryNames"
+        (reassignTransaction)="handleReassign($event)"
+      ></app-category-card>
+    }
   </div>
 
   <!-- Summary Card -->

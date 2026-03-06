@@ -9,11 +9,11 @@
   },
   {
     "id": 2,
-    "item": "Rent",
-    "amount": -1200,
+    "item": "Water",
+    "amount": -120,
     "date": "2021-01-01",
     "account": "Bank of America",
-    "type": "Living"
+    "type": "Utilities"
   },
   {
     "id": 3,

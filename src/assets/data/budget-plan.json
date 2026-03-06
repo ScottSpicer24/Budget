@@ -1,6 +1,11 @@
 {
-  "income": 2500,
-  "savingsGoals": [
+  "incomes": [
+    {
+      "name": "Salary",
+      "amount": 2500
+    }
+  ],
+  "savingsGoal": [
     {
       "name": "Emergency Fund",
       "priority": 1,
@@ -46,7 +51,7 @@
       "amount": 150
     },
     {
-      "name": "Subscription Services",
+      "name": "Entertainment",
       "need": false,
       "amount": 300
     }
