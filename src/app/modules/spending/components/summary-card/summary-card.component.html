@@ -1,7 +1,48 @@
 <div class="flex min-h-[180px] flex-col overflow-y-auto rounded-lg bg-background px-8 py-8 md:sticky md:top-4 md:max-h-[calc(100vh_-_10rem)]">
   <!-- Header -->
   <div class="mb-4 flex items-center justify-between">
-    <h3 class="text-md font-bold text-foreground">Summary</h3>
+    <h3 class="text-md font-bold text-foreground">Spending Summary</h3>
   </div>
 
+  <!-- Donut Chart -->
+  @if (hasChartData) {
+    <div class="flex justify-center">
+      <apx-chart
+        [series]="chartOptions.series!"
+        [chart]="chartOptions.chart!"
+        [labels]="chartOptions.labels!"
+        [dataLabels]="chartOptions.dataLabels!"
+        [legend]="chartOptions.legend!"
+        [plotOptions]="chartOptions.plotOptions!"
+        [stroke]="chartOptions.stroke!"
+        [fill]="chartOptions.fill!"
+        [tooltip]="chartOptions.tooltip!"
+        [theme]="chartOptions.theme!"
+        [colors]="chartOptions.colors!"
+        [responsive]="chartOptions.responsive!">
+      </apx-chart>
+    </div>
+  } @else {
+    <div class="flex h-[200px] items-center justify-center rounded-lg border border-dashed border-border">
+      <span class="text-xs text-muted-foreground">No spending data yet</span>
+    </div>
+  }
+
+  <!-- Category List -->
+  <div class="mt-4 flex flex-col gap-2 pb-2">
+    @for (item of categoryItems; track item.name) {
+      <div class="flex items-center justify-between gap-2">
+        <div class="flex min-w-0 items-center gap-2">
+          <span class="h-2.5 w-2.5 shrink-0 rounded-full" [style.background]="item.color"></span>
+          <span class="truncate text-md text-muted-foreground">{{ item.name }}</span>
+        </div>
+        <span class="shrink-0 text-md text-foreground">{{ item.totalSpent | currency }}</span>
+      </div>
+    }
+  </div>
+
+  <div class="flex justify-between border-t-2 border-foreground pt-3 font-bold">
+    <span class="text-foreground text-3xl">Total</span>
+    <span class="text-primary text-3xl">{{ totalSpent }}</span>
+  </div>
 </div>
