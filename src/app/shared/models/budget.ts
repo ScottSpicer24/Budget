@@ -65,3 +65,11 @@ export interface SpendingCategory {
   totalSpent: number;
   over: boolean;
 }
+
+export interface Profile {
+  profilePic : string,
+  name : string,
+  email : string,
+  phone_number : string,
+  password : string
+}

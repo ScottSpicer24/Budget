@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import accountsData from '../../../../../assets/data/accounts.json'
+import { Account } from 'src/app/shared/models/budget';
+
+
 
 @Component({
   selector: 'app-connected-financials',
@@ -6,5 +10,5 @@ import { Component } from '@angular/core';
   templateUrl: './connected-financials.component.html'
 })
 export class ConnectedFinancialsComponent {
-
+  protected accounts: Account[] = accountsData
 }
