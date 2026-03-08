@@ -2,34 +2,27 @@
     <img src="src/assets/preview/logo.png" width="150">
 </p>
 
-<p align="center">
-    <a href="https://github.com/luciano-work/angular-tailwind/stargazers">
-        <img height= "24" src="https://img.shields.io/github/stars/luciano-work/angular-tailwind?colorA=1e1e28&colorB=c9cbff&style=for-the-badge">
-    </a>
-    <a href="https://github.com/luciano-work/angular-tailwind/issues">
-        <img height= "24" src="https://img.shields.io/github/issues/luciano-work/angular-tailwind?colorA=1e1e28&colorB=f7be95&style=for-the-badge">
-    </a>
-    <a href="https://github.com/luciano-work/angular-tailwind/contributors">
-        <img height= "24" src="https://img.shields.io/github/contributors/luciano-work/angular-tailwind?colorA=1e1e28&colorB=b1e1a6&style=for-the-badge">
-    </a>
-</p>
-
 #### Motivation
 
-For me, the best strategy for learning new skills is to practice. I have created this project to learn more about Tailwind CSS using my favorite framework (Angular). I have to tell you, Tailwind is amazing!
+Instead of using excel or paying for a service I figured I would make my own budgeting app and practice my full stack development skills. The core front-end framework is Angular. I figured I would also try Tailwind CSS which i've heard a lot about recently (Tailwind is amazing!). The CI/CD pipeline will use GitHub Actions and the back-end will be in AWS.
+
 
 <b><img src="https://cdn-icons-png.flaticon.com/512/6897/6897039.png" width="14"/> The project is not finished yet!</b>
+<!-- 
+See [Demo](<link here>) page soon.
+-->
 
-See [Demo](https://at.lanno.dev) page.
-
+<!--
 <p>
   <img alt="Preview" src="src/assets/preview/preview.gif">
 </p>
+-->
 
 #### Versions
 
 <a href="https://angular.io"><img height= "24" src= "https://img.shields.io/badge/Angular 20-DD0031?style=for-the-badge&logo=angular&logoColor=white"></a> <a href="https://tailwindcss.com"><img height= "24" src= "https://img.shields.io/badge/Tailwind 4-0ea5e9?style=for-the-badge&logo=tailwind-css&logoColor=white"></a>
 
+<!-- 
 #### Features
 
 - [x] Sidebar
@@ -46,6 +39,7 @@ See [Demo](https://at.lanno.dev) page.
 - [ ] Guards
 - [ ] Animations
 - [ ] Jasmine tests
+-->
 
 #### Commands
 
@@ -79,17 +73,11 @@ See [Demo](https://at.lanno.dev) page.
 
 This project use [Hero Icons](https://heroicons.com/) , [Hero Patterns](https://heropatterns.com/) and [Popsys illustrations](https://popsy.co/)
 
-#### Sponsors ❤️
-
-Check out our awesome sponsors!
-
-[<img src="https://avatars.githubusercontent.com/u/19482926?v=4" width="60">](https://github.com/jhonnygarcia)
-[<img src="https://avatars.githubusercontent.com/u/44730111?v=4" width="60">](https://github.com/ramses-i)
-[<img src="https://avatars.githubusercontent.com/u/67803716?v=4" width="60">](https://github.com/walteribanez555)
-
+<!-- 
 ### Repo Activity
 
 ![Alt](https://repobeats.axiom.co/api/embed/75671ffcba2d7e21fb5ceb8e32598fb8335cfa20.svg 'Repobeats analytics image')
+-->
 
 #### Disclaimer
 
