@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { BudgetHeaderComponent } from '../../components/budget/budget-header/budget-header.component';
+import { BudgetHeaderComponent } from '../../components/budget-header/budget-header.component';
 import data from '../../../../../assets/data/accounts.json';
 import { Account } from '../../../../shared/models/budget';
-import { BalanceCardComponent } from '../../components/budget/balance-card/balance-card.component';
-import { TransactionsCardComponent } from '../../components/budget/transactions-card/transactions-card.component';
-import { BudgetsCardComponent } from '../../components/budget/budgets-card/budgets-card.component';
-import { SpendingCardComponent } from '../../components/budget/spending-card/spending-card.component';
+import { BalanceCardComponent } from '../../components/balance-card/balance-card.component';
+import { TransactionsCardComponent } from '../../components/transactions-card/transactions-card.component';
+import { BudgetsCardComponent } from '../../components/budgets-card/budgets-card.component';
+import { SpendingCardComponent } from '../../components/spending-card/spending-card.component';
 
 
 @Component({
