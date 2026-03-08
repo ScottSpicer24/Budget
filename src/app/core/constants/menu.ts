@@ -12,22 +12,22 @@ export class Menu {
           route: '/dashboard/budget',
         },
         {
-          icon: 'assets/icons/heroicons/outline/eye.svg',
-          label: 'Transactions',
-          route: '/transactions',
-        },
-        {
-          icon: 'assets/icons/heroicons/outline/eye.svg',
+          icon: 'assets/icons/heroicons/outline/folder.svg',
           label: 'Budgets',
           route: '/budgets',
         },
         {
-          icon: 'assets/icons/heroicons/outline/eye.svg',
+          icon: 'assets/icons/heroicons/outline/gift.svg',
           label: 'Spending',
           route: '/spending',
         },
         {
-          icon: 'assets/icons/heroicons/outline/eye.svg',
+          icon: 'assets/icons/heroicons/outline/view-grid.svg',
+          label: 'Transactions',
+          route: '/transactions',
+        },
+        {
+          icon: 'assets/icons/heroicons/outline/user-circle.svg',
           label: 'Accounts',
           route: '/accounts',
         },
