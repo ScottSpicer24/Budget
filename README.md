@@ -12,6 +12,8 @@ Instead of using excel or paying for a service I figured I would make my own bud
 See [Demo](<link here>) page soon.
 -->
 
+#### Preview
+Preview coming soon!
 <!--
 <p>
   <img alt="Preview" src="src/assets/preview/preview.gif">
