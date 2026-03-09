@@ -1,5 +1,5 @@
 import { enableProdMode, importProvidersFrom } from '@angular/core';
-
+import { provideAuth } from 'angular-auth-oidc-client';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app/app-routing.module';
@@ -20,6 +20,15 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(BrowserModule, AppRoutingModule),
     provideAnimations(),
     provideZonelessChangeDetection(),
+    provideAuth({
+      config: {
+        authority: 'https://cognito-idp.us-east-1.amazonaws.com/us-east-1_G5bThHJHK',
+        redirectUrl: 'https://d84l1y8p4kdic.cloudfront.net',
+        clientId: '303s891u1rbh215qo7q7nilp82',
+        scope: 'phone openid email',
+        responseType: 'code'
+      },
+    })
   ],
 }).catch((err) => console.error(err));
 
@@ -35,3 +44,5 @@ function selfXSSWarning() {
     );
   });
 }
+
+
