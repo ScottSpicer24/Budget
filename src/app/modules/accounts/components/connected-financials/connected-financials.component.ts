@@ -15,6 +15,7 @@ export class ConnectedFinancialsComponent {
   private plaid = inject(PlaidService)
 
   async addAccount() {
+    console.log("Adding Bank Account.")
     await this.plaid.openPlaidLink();
     // After success, refresh your accounts list
   }

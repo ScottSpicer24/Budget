@@ -8,13 +8,15 @@ export class PlaidService {
   private http = inject(HttpClient);
 
   // Replace with your Lambda URL when ready
-  private linkTokenUrl = 'YOUR_LAMBDA_URL_HERE';
+  private linkTokenUrl = 'https://l53q3cn1hh.execute-api.us-east-1.amazonaws.com/plaidLink';
 
   async openPlaidLink(): Promise<void> {
-    /*const { link_token } = await firstValueFrom(
-      this.http.post<{ link_token: string }>(this.linkTokenUrl, {})
-    );*/
-    const link_token = ""
+    console.log("Getting Link Token")
+    const { link_token } = await firstValueFrom(
+      this.http.get<{ link_token: string }>(this.linkTokenUrl, {})
+    );
+    console.log("Finished getting Link Token")
+    console.log(link_token)
 
     return new Promise((resolve, reject) => {
       const handler = window.Plaid.create({
