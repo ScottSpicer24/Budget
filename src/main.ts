@@ -29,9 +29,12 @@ bootstrapApplication(AppComponent, {
       config: {
         authority: 'https://cognito-idp.us-east-1.amazonaws.com/us-east-1_G5bThHJHK',
         redirectUrl: 'https://d84l1y8p4kdic.cloudfront.net',
+        postLogoutRedirectUri: 'https://d84l1y8p4kdic.cloudfront.net',
         clientId: '303s891u1rbh215qo7q7nilp82',
         scope: 'phone openid email',
         responseType: 'code',
+        silentRenew: true,
+        useRefreshToken: true,
         // The secureRoutes array is a prefix match — any request whose URL starts with one of those strings will have the token attached automatically.
         secureRoutes: ['https://l53q3cn1hh.execute-api.us-east-1.amazonaws.com'], // TODO: ADD actual one
       },

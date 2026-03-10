@@ -3,6 +3,7 @@ import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { ThemeService } from '../../../../../core/services/theme.service';
 import { ClickOutsideDirective } from '../../../../../shared/directives/click-outside.directive';
 
@@ -47,11 +48,6 @@ export class ProfileMenuComponent implements OnInit {
       icon: './assets/icons/heroicons/outline/cog-6-tooth.svg',
       link: '/settings',
     },
-    {
-      title: 'Log out',
-      icon: './assets/icons/heroicons/outline/logout.svg',
-      link: '/auth',
-    },
   ];
 
   public themeColors = [
@@ -88,12 +84,19 @@ export class ProfileMenuComponent implements OnInit {
   public themeMode = ['light', 'dark'];
   public themeDirection = ['ltr', 'rtl'];
 
-  constructor(public themeService: ThemeService) {}
+  constructor(
+    public themeService: ThemeService,
+    private readonly oidc: OidcSecurityService,
+  ) {}
 
   ngOnInit(): void {}
 
   public toggleMenu(): void {
     this.isOpen = !this.isOpen;
+  }
+
+  public logout(): void {
+    this.oidc.logoff().subscribe();
   }
 
   toggleThemeMode() {
