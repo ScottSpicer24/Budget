@@ -10,12 +10,12 @@ export class PlaidService {
 
   // Lambda URL
   private lambdaPath = '/plaidLink'
-  private lambdaURL = env.lambdaURL.concat(this.lambdaPath)
+  private lambda = env.lambdaURL.concat(this.lambdaPath)
 
   async openPlaidLink(): Promise<void> {
     console.log("Getting Link Token")
     const { link_token } = await firstValueFrom(
-      this.http.get<{ link_token: string }>(this.lambdaURL, {})
+      this.http.get<{ link_token: string }>(this.lambda, {})
     );
     console.log("Finished getting Link Token")
     console.log(link_token)
@@ -23,12 +23,22 @@ export class PlaidService {
     return new Promise((resolve, reject) => {
       const handler = window.Plaid.create({
         token: link_token,
-        onSuccess: (public_token, metadata) => {
-          console.log('Public token:', public_token);
-          console.log('Metadata:', metadata);
-          // TODO: Send public_token to your exchange Lambda here
-          handler.destroy();
-          resolve();
+        onSuccess: async (public_token, metadata) => {
+          try {
+            console.log('Public token:', public_token);
+            console.log('Metadata:', metadata);
+
+            const payload = { public_token };
+            const resp = await firstValueFrom(this.http.post(this.lambda, payload));
+            console.log(`response: ${JSON.stringify(resp)}`);
+
+            handler.destroy();
+            resolve();
+          }
+          catch (err) {
+            handler.destroy();
+            reject(err);  // now the outer Promise properly rejects on failure
+          }
         },
         onExit: (err, metadata) => {
           console.log('Plaid onExit:', { err, metadata });
