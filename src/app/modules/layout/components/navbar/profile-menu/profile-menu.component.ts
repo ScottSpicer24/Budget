@@ -96,7 +96,12 @@ export class ProfileMenuComponent implements OnInit {
   }
 
   public logout(): void {
-    this.oidc.logoff().subscribe();
+    this.oidc.logoffLocal();
+    const cognitoLogoutUrl =
+      'https://us-east-1g5bthhjhk.auth.us-east-1.amazoncognito.com/logout' +
+      '?client_id=303s891u1rbh215qo7q7nilp82' +
+      '&logout_uri=' + encodeURIComponent('http://localhost:4200');
+    window.location.href = cognitoLogoutUrl;
   }
 
   toggleThemeMode() {

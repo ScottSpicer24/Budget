@@ -2,18 +2,20 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { env } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class PlaidService {
   private http = inject(HttpClient);
 
-  // Replace with your Lambda URL when ready
-  private linkTokenUrl = 'https://l53q3cn1hh.execute-api.us-east-1.amazonaws.com/plaidLink';
+  // Lambda URL
+  private lambdaPath = '/plaidLink'
+  private lambdaURL = env.lambdaURL.concat(this.lambdaPath)
 
   async openPlaidLink(): Promise<void> {
     console.log("Getting Link Token")
     const { link_token } = await firstValueFrom(
-      this.http.get<{ link_token: string }>(this.linkTokenUrl, {})
+      this.http.get<{ link_token: string }>(this.lambdaURL, {})
     );
     console.log("Finished getting Link Token")
     console.log(link_token)
